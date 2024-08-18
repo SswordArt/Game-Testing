@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
-    public string itemName;
+    public string ItemName;
 
-    public void Interact()
+    public string GetItemName()
     {
-        Debug.Log("Interacting with " + itemName);
-        // Buraya nesneyle ne yapmak istediðinizi ekleyebilirsiniz
+        return ItemName;
     }
 }
