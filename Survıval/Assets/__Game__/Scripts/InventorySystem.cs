@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class InventorySystem : MonoBehaviour
@@ -9,7 +10,18 @@ public class InventorySystem : MonoBehaviour
     public static InventorySystem Instance { get; set; }
 
     public GameObject inventoryScreenUI;
+
+    public List<GameObject> SlotList = new List<GameObject>();
+
+    public List<string> ItemList = new List<string>();
+
+    private GameObject itemToAdd;
+
+    private GameObject whatSlotToEquip;
+
     public bool isOpen;
+
+    // public bool isFull;
 
 
     private void Awake()
@@ -28,8 +40,23 @@ public class InventorySystem : MonoBehaviour
     void Start()
     {
         isOpen = false;
+        
+
+        PopulateSlotList();
+
     }
 
+    private void PopulateSlotList()
+    {
+
+        foreach (Transform child in inventoryScreenUI.transform) 
+        {
+            if (child.CompareTag("Slot"))
+            {
+                SlotList.Add(child.gameObject);
+            }  
+        }
+    }
 
     void Update()
     {
@@ -51,4 +78,62 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    public void AddToInventory(string itemName)
+    {
+
+            whatSlotToEquip = FindNextEmptySlot();
+
+            itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), whatSlotToEquip.transform.position, whatSlotToEquip.transform.rotation);
+            itemToAdd.transform.SetParent(whatSlotToEquip.transform);
+
+            ItemList.Add(itemName);
+
+
+    }
+
+
+
+    private GameObject FindNextEmptySlot()
+    {
+        foreach (GameObject slot in SlotList)
+        {
+
+            if (slot.transform.childCount == 0)
+            {
+
+                return slot;
+
+            } 
+        }
+
+        return new GameObject();
+
+    }
+
+
+
+    public bool checkIfFull()
+    {
+        int counter = 0;
+        foreach (GameObject slot in SlotList)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                counter += 1;
+            }
+
+        }
+        if (counter == 21)
+        {
+
+            return true;
+
+        }
+        else
+        {
+
+            return false;
+
+        }
+    }
 }
