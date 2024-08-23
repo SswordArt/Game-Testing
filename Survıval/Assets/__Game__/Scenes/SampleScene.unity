@@ -302,7 +302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &96104488
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1482,7 +1482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &904296498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4368,6 +4368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1966034843}
+  - component: {fileID: 1966034844}
   m_Layer: 0
   m_Name: CraftingSystem
   m_TagString: Untagged
@@ -4390,6 +4391,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 170015405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1966034844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966034842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f377473dc247b944e86f1e9d0001772b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CraftingScreenUI: {fileID: 1169552272}
+  ToolsScreenUI: {fileID: 96104487}
+  inventoryItemList: []
+  isOpen: 0
 --- !u!1 &2024828714
 GameObject:
   m_ObjectHideFlags: 0
