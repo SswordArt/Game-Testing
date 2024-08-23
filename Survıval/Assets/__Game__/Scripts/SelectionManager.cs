@@ -11,6 +11,8 @@ public class SelectionManager : MonoBehaviour
 
     public bool onTarget;
 
+    public GameObject selectedObject;
+
     public GameObject interaction_Info_UI;
     Text interaction_text;
  
@@ -43,7 +45,7 @@ public class SelectionManager : MonoBehaviour
             if (selectionTransform.GetComponent<InteractableObject>() && selectionTransform.GetComponent<InteractableObject>().PlayerInRange)
             {
                 onTarget = true;
-
+                selectedObject = selectionTransform.GetComponent<InteractableObject>().gameObject;
                 interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
                 interaction_Info_UI.SetActive(true);
             }
