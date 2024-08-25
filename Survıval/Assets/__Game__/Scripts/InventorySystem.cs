@@ -95,6 +95,10 @@ public class InventorySystem : MonoBehaviour
             ItemList.Add(itemName);
 
 
+
+            ReCalculateList();
+            CraftingSystem.Instance.RefreshNeededItems();
+
     }
 
 
@@ -115,17 +119,13 @@ public class InventorySystem : MonoBehaviour
                     counter -= 1;
 
                 }
-
-
-
             }
-
-
 
         }
 
 
-
+        ReCalculateList();
+        CraftingSystem.Instance.RefreshNeededItems();
 
     }
 
