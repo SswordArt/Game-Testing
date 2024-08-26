@@ -166,10 +166,16 @@ public class CraftingSystem : MonoBehaviour
         if (stone_count >= 3 && stick_count >= 3)
         {
             craftAxeBTN.gameObject.SetActive(true);
+            AxeReq1.color = Color.white;
+            AxeReq2.color = Color.white;
         }
         else
         {
             craftAxeBTN.gameObject.SetActive(false);
+
+            // Koþullara göre renk ayarý yapýlýr
+            AxeReq1.color = stone_count >= 3 ? Color.white : Color.red;
+            AxeReq2.color = stick_count >= 3 ? Color.white : Color.red;
         }
 
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -23,6 +24,13 @@ public class InventorySystem : MonoBehaviour
 
     // public bool isFull;
 
+
+    //PickUpAlert
+
+    public GameObject pickupAlert;
+
+    public Text pickupName;
+    public Image pickupImage;
 
     private void Awake()
     {
@@ -94,10 +102,25 @@ public class InventorySystem : MonoBehaviour
 
             ItemList.Add(itemName);
 
+            Sprite sprite = itemToAdd.GetComponent<Image>().sprite;
 
+
+            TriggerPickUpAlert(itemName, sprite);
 
             ReCalculateList();
             CraftingSystem.Instance.RefreshNeededItems();
+
+    }
+
+
+    void TriggerPickUpAlert(string itemName, Sprite itemSprite)
+    {
+
+        pickupAlert.SetActive(true);
+
+        pickupName.text = itemName;
+        pickupImage.sprite = itemSprite;
+
 
     }
 
