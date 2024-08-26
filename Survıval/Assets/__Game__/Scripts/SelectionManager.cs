@@ -15,6 +15,10 @@ public class SelectionManager : MonoBehaviour
 
     public GameObject interaction_Info_UI;
     Text interaction_text;
+
+
+    public Image centerDotIcon;
+    public Image HandIcon;
  
     private void Start()
     {
@@ -41,18 +45,41 @@ public class SelectionManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             var selectionTransform = hit.transform;
- 
-            if (selectionTransform.GetComponent<InteractableObject>() && selectionTransform.GetComponent<InteractableObject>().PlayerInRange)
+
+            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+
+
+            if (interactable && interactable.PlayerInRange)
             {
                 onTarget = true;
-                selectedObject = selectionTransform.GetComponent<InteractableObject>().gameObject;
-                interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
+                selectedObject = interactable.gameObject;
+                interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
+
+                if (interactable.CompareTag("Pickable"))
+                {
+
+                    centerDotIcon.gameObject.SetActive(false);
+                    HandIcon.gameObject.SetActive(true);
+
+
+                }
+                else
+                {
+                    centerDotIcon.gameObject.SetActive(true);
+                    HandIcon.gameObject.SetActive(false);
+
+
+                }
+
+
             }
             else 
             {
                 onTarget = false;
                 interaction_Info_UI.SetActive(false);
+                centerDotIcon.gameObject.SetActive(true);
+                HandIcon.gameObject.SetActive(false);
             }
 
         }
@@ -60,6 +87,8 @@ public class SelectionManager : MonoBehaviour
         {
             onTarget = false;
             interaction_Info_UI.SetActive(false);
+            centerDotIcon.gameObject.SetActive(true);
+            HandIcon.gameObject.SetActive(false);
         }
     }
 }
