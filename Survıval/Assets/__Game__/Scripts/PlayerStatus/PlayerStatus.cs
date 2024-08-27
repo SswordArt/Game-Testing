@@ -23,6 +23,8 @@ public class PlayerStatus : MonoBehaviour
     public float CurrentHydration;
     public float MaxHydration;
 
+    public bool isHydrationActive;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,8 +41,26 @@ public class PlayerStatus : MonoBehaviour
     {
         CurrentHealth = MaxHealth;
         CurrentFood = MaxFood;
+        CurrentHydration = MaxHydration;
         lastPosition = playerBody.transform.position;
+
+        StartCoroutine(DeacreaseWater());
     }
+
+    IEnumerator DeacreaseWater()
+    {
+        while (true) 
+        {
+
+            CurrentHydration -= 1;
+            yield return new WaitForSeconds(10);
+
+            
+            
+        }
+
+    }
+
 
     void Update()
     {
