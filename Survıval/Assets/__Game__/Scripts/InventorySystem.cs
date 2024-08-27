@@ -119,8 +119,19 @@ public class InventorySystem : MonoBehaviour
         pickupAlert.SetActive(true);
 
         pickupName.text = itemName;
+
         pickupImage.sprite = itemSprite;
 
+        StartCoroutine(HidePickupAlertAfterDelay(2f));
+    }
+
+    private IEnumerator HidePickupAlertAfterDelay(float delay)
+    {
+
+        yield return new WaitForSeconds(delay);
+
+
+        pickupAlert.SetActive(false);
 
     }
 
