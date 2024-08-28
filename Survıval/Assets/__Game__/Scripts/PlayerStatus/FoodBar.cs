@@ -8,7 +8,7 @@ public class FoodBar : MonoBehaviour
     public Slider slider;
     public Text FoodCounter;
 
-    public GameObject playerState;
+    public GameObject PlayerStatus;
 
     private float CurrentFood, MaxFood;
 
@@ -22,8 +22,8 @@ public class FoodBar : MonoBehaviour
 
     void Update()
     {
-        CurrentFood = playerState.GetComponent<PlayerStatus>().CurrentFood;
-        MaxFood = playerState.GetComponent<PlayerStatus>().MaxFood;
+        CurrentFood = PlayerStatus.GetComponent<PlayerStatus>().CurrentFood;
+        MaxFood = PlayerStatus.GetComponent<PlayerStatus>().MaxFood;
 
         float fillValue = CurrentFood / MaxFood; // 0 - 1
         slider.value = fillValue;

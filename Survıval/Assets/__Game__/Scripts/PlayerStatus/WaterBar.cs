@@ -8,7 +8,7 @@ public class WaterBar : MonoBehaviour
     public Slider slider;
     public Text HydrationCounter;
 
-    public GameObject playerState;
+    public GameObject PlayerStatus;
 
     private float CurrentHydration, MaxHydration;
 
@@ -22,8 +22,8 @@ public class WaterBar : MonoBehaviour
 
     void Update()
     {
-        CurrentHydration = playerState.GetComponent<PlayerStatus>().CurrentHydration;
-        MaxHydration = playerState.GetComponent<PlayerStatus>().MaxHydration;
+        CurrentHydration = PlayerStatus.GetComponent<PlayerStatus>().CurrentHydration;
+        MaxHydration = PlayerStatus.GetComponent<PlayerStatus>().MaxHydration;
 
         float fillValue = CurrentHydration / MaxHydration; // 0 - 1
         slider.value = fillValue;

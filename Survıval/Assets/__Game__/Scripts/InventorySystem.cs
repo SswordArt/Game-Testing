@@ -12,6 +12,8 @@ public class InventorySystem : MonoBehaviour
 
     public GameObject inventoryScreenUI;
 
+    public GameObject ItemInfoUI;
+
     public List<GameObject> SlotList = new List<GameObject>();
 
     public List<string> ItemList = new List<string>();

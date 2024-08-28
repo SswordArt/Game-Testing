@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
     public static PlayerStatus Instance { get; private set; }
-
+    #region[Player Status]
     //--PLAYER HEALTH-- // 
     public float CurrentHealth;
     public float MaxHealth;
@@ -24,7 +25,7 @@ public class PlayerStatus : MonoBehaviour
     public float MaxHydration;
 
     public bool isHydrationActive;
-
+    #endregion
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -87,4 +88,22 @@ public class PlayerStatus : MonoBehaviour
             CurrentFood -= 1;
         }
     }
+    #region [Setting player status]
+    
+    public void setHealth(float newHealth)
+    {
+        CurrentHealth = newHealth;
+    }
+
+    public void setFood(float newFood)
+    {
+        CurrentFood = newFood;
+    }
+
+    public void setHydration(float newHydration)
+    {
+        CurrentHydration = newHydration;
+    }
+
+    #endregion
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1976821876099221562}
   - component: {fileID: 8322609836494225130}
   - component: {fileID: 1281036789100918412}
+  - component: {fileID: 4569052952227021832}
   m_Layer: 5
   m_Name: Stone
   m_TagString: Untagged
@@ -102,3 +103,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4569052952227021832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4331540201014034352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012159f4cefa2b74080b51dde3f2c60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrashable: 0
+  thisName: Stone
+  thisDescription: Just a stone
+  thisFunctionality: Used for Craft
+  isConsumable: 0
+  healthEffect: 0
+  caloriesEffect: 0
+  hydrationEffect: 0
