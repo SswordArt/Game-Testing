@@ -11,7 +11,8 @@ public class TrashSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoi
 
     public GameObject trashAlertUI;
 
-    private Text textToModify;
+ /* public Text textToModify;
+    public Text textToModify2; */
 
     public Sprite trash_closed;
     public Sprite trash_opened;
@@ -32,7 +33,7 @@ public class TrashSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoi
 
 
 
-    public string itemName
+   /* public string itemName
     {
         get
         {
@@ -41,15 +42,14 @@ public class TrashSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoi
             string result = name.Replace(toRemove, "");
             return result;
         }
-    }
+    } */
 
 
 
     void Start()
     {
-        imageComponent = trashAlertUI.transform.Find("background").GetComponent<Image>();
+        imageComponent = transform.Find("background").GetComponent<Image>();
 
-        textToModify = trashAlertUI.transform.Find("Text").GetComponent<Text>();
 
         YesBTN = trashAlertUI.transform.Find("Yes").GetComponent<Button>();
         YesBTN.onClick.AddListener(delegate { DeleteItem(); });
@@ -75,7 +75,6 @@ public class TrashSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoi
     IEnumerator notifyBeforeDeletion()
     {
         trashAlertUI.SetActive(true);
-        textToModify.text = "Throw away this " + itemName + "?";
         yield return new WaitForSeconds(1f);
     }
 
