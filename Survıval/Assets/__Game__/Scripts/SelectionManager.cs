@@ -91,4 +91,25 @@ public class SelectionManager : MonoBehaviour
             HandIcon.gameObject.SetActive(false);
         }
     }
+
+    #region[SelectionForToolsBar]
+    public void DisableSelection()
+    {
+
+        HandIcon.enabled = false;
+        centerDotIcon.enabled = false;
+        interaction_Info_UI.SetActive(false);
+
+        selectedObject = null;
+
+    }
+    public void EnableSelection()
+    {
+        HandIcon.enabled = true;
+        centerDotIcon.enabled = true;
+        interaction_Info_UI.SetActive(true);
+
+
+    }
+    #endregion
 }
