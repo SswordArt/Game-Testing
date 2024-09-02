@@ -10,13 +10,10 @@ public class EquipSystem : MonoBehaviour
 
     // -- UI -- //
     public GameObject quickSlotsPanel;
-
     public List<GameObject> quickSlotsList = new List<GameObject>();
-
     public GameObject numbersHolder;
-
     public int selectedNumber = -1;
-    public GameObject selectedItem;
+    private GameObject selectedItem;
 
     private void Awake()
     {
@@ -30,7 +27,6 @@ public class EquipSystem : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         PopulateSlotList();
@@ -38,114 +34,103 @@ public class EquipSystem : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SelectQuickSlot(1);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SelectQuickSlot(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SelectQuickSlot(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SelectQuickSlot(4);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SelectQuickSlot(5);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            SelectQuickSlot(6);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            SelectQuickSlot(7);
-        }
-        /*else
-        {
-            Debug.Log("only in range 1-7");
-        }*/
-
-
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { SelectQuickSlot(1); }
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) { SelectQuickSlot(2); }
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) { SelectQuickSlot(3); }
+        else if (Input.GetKeyDown(KeyCode.Alpha4)) { SelectQuickSlot(4); }
+        else if (Input.GetKeyDown(KeyCode.Alpha5)) { SelectQuickSlot(5); }
+        else if (Input.GetKeyDown(KeyCode.Alpha6)) { SelectQuickSlot(6); }
+        else if (Input.GetKeyDown(KeyCode.Alpha7)) { SelectQuickSlot(7); }
     }
-    #region[SlotSelectionCodes]
-    public void SelectQuickSlot(int number) 
+
+    #region [SlotSelectionCodes]
+    public void SelectQuickSlot(int number)
     {
-
-        if (checkIfSlotIsFull(number) == true)
+        if (checkIfSlotIsFull(number))
         {
-
             if (selectedNumber != number)
             {
                 selectedNumber = number;
 
-                // Unselect Previosly selected item
-                if (selectedItem == null)
+                // Unselect Previously selected item
+                if (selectedItem != null)
                 {
-                    selectedItem.gameObject.GetComponent<InventoryItem>().isSelected = false;
+                    selectedItem.GetComponent<InventoryItem>().isSelected = false;
                 }
 
                 selectedItem = getSelectedItem(number);
-                selectedItem.GetComponent<InventoryItem>().isSelected = true;
 
-
-                //Color Changes
-                foreach (Transform child in numbersHolder.transform)
+                if (selectedItem != null)
                 {
-                    child.transform.Find("Text").GetComponent<Text>().color = Color.gray;
+                    selectedItem.GetComponent<InventoryItem>().isSelected = true;
+
+                    // Color Changes
+                    UpdateSlotColors(number);
                 }
-
-
-                Text ToBeChanged = numbersHolder.transform.Find("number" + number).transform.Find("Text").GetComponent<Text>();
-                ToBeChanged.color = Color.white;
-            }
-            else // trying to select the same slot
-            {
-                selectedNumber = -1; //no number selected
-
-                // Unselect Previosly selected item
-                if (selectedItem == null)
+                else
                 {
-                    selectedItem.gameObject.GetComponent<InventoryItem>().isSelected = false;
+                    Debug.LogWarning("Selected item is null after selecting slot number: " + number);
+                }
+            }
+            else // Trying to select the same slot
+            {
+                selectedNumber = -1; // No number selected
+
+                // Unselect Previously selected item
+                if (selectedItem != null)
+                {
+                    selectedItem.GetComponent<InventoryItem>().isSelected = false;
                     selectedItem = null;
                 }
-                //Color Changes
-                foreach (Transform child in numbersHolder.transform)
-                {
-                    child.transform.Find("Text").GetComponent<Text>().color = Color.gray;
-                }
 
+                // Color Changes
+                UpdateSlotColors(-1);
             }
+        }
+    }
 
+    private void UpdateSlotColors(int activeNumber)
+    {
+        // Reset all slots to gray
+        foreach (Transform child in numbersHolder.transform)
+        {
+            Text slotText = child.GetComponentInChildren<Text>();
+            if (slotText != null)
+            {
+                slotText.color = Color.gray;
+            }
         }
 
-        
-        
+        // Set the selected slot to white
+        if (activeNumber >= 1 && activeNumber <= 7)
+        {
+            Transform slotTransform = numbersHolder.transform.Find("number" + activeNumber);
+            if (slotTransform != null)
+            {
+                Text slotText = slotTransform.GetComponentInChildren<Text>();
+                if (slotText != null)
+                {
+                    slotText.color = Color.white;
+                }
+            }
+        }
     }
 
     GameObject getSelectedItem(int slotNumber)
     {
-        return quickSlotsList[slotNumber - 1].transform.GetChild(0).gameObject;
+        if (quickSlotsList[slotNumber - 1].transform.childCount > 0)
+        {
+            return quickSlotsList[slotNumber - 1].transform.GetChild(0).gameObject;
+        }
+        return null;
     }
 
-    public bool checkIfSlotIsFull(int slotnumber)
+    public bool checkIfSlotIsFull(int slotNumber)
     {
-        if (quickSlotsList[slotnumber - 1].transform.childCount > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return quickSlotsList[slotNumber - 1].transform.childCount > 0;
     }
     #endregion
+
     private void PopulateSlotList()
     {
         foreach (Transform child in quickSlotsPanel.transform)
@@ -165,9 +150,7 @@ public class EquipSystem : MonoBehaviour
         itemToEquip.transform.SetParent(availableSlot.transform, false);
 
         InventorySystem.Instance.ReCalculateList();
-
     }
-
 
     private GameObject FindNextEmptySlot()
     {
@@ -183,7 +166,6 @@ public class EquipSystem : MonoBehaviour
 
     public bool CheckIfFull()
     {
-
         int counter = 0;
 
         foreach (GameObject slot in quickSlotsList)
@@ -194,13 +176,6 @@ public class EquipSystem : MonoBehaviour
             }
         }
 
-        if (counter == 7)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return counter == 7;
     }
 }

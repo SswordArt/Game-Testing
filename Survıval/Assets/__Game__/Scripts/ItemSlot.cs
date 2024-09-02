@@ -45,7 +45,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
             if (transform.CompareTag("QuickSlot"))
             {
-                DragDrop.itemBeingDragged.GetComponent<InventoryItem>().isInsideQuickSlot = true;
+                var inventoryItem = DragDrop.itemBeingDragged.GetComponent<InventoryItem>();
+                inventoryItem.isInsideQuickSlot = true;
+                inventoryItem.isSelected = true;  // Burada isSelected'ý da güncelleyebilirsin
+
+                Debug.Log("Item QuickSlot'a eklendi: " + inventoryItem.name + ", isInsideQuickSlot: " + inventoryItem.isInsideQuickSlot + ", isSelected: " + inventoryItem.isSelected);
+
                 InventorySystem.Instance.ReCalculateList();
             }
 
