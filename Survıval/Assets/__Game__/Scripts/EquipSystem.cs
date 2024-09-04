@@ -14,6 +14,8 @@ public class EquipSystem : MonoBehaviour
     public GameObject numbersHolder;
     public int selectedNumber = -1;
     private GameObject selectedItem;
+    public GameObject ToolHolder;
+    public GameObject SelectedItemModel;
 
     private void Awake()
     {
@@ -60,6 +62,8 @@ public class EquipSystem : MonoBehaviour
 
                 selectedItem = getSelectedItem(number);
 
+                SetEquippedModel(selectedItem);
+
                 if (selectedItem != null)
                 {
                     selectedItem.GetComponent<InventoryItem>().isSelected = true;
@@ -83,10 +87,30 @@ public class EquipSystem : MonoBehaviour
                     selectedItem = null;
                 }
 
+                if (SelectedItemModel != null)
+                {
+                    DestroyImmediate(SelectedItemModel.gameObject);
+                    SelectedItemModel = null;
+                }
                 // Color Changes
                 UpdateSlotColors(-1);
             }
         }
+    }
+
+    private void SetEquippedModel(GameObject selectedItem)
+    {
+
+        if (SelectedItemModel != null)
+        {
+            DestroyImmediate(SelectedItemModel.gameObject);
+            SelectedItemModel = null;
+        }
+
+        string selectedItemName = selectedItem.name.Replace("(Clone)" , "");
+        SelectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+           new Vector3(0.5371355f, 0.2899926f, 1.138099f), Quaternion.Euler(-3.276f, -34.621f, 2.397f) );
+        SelectedItemModel.transform.SetParent(ToolHolder.transform, false);
     }
 
     private void UpdateSlotColors(int activeNumber)
