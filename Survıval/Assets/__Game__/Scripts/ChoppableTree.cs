@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,14 @@ public class ChoppableTree : MonoBehaviour
     public float treeMaxHealth;
     public float treeHealth;
 
+    public Animator animator;
 
+    public float caloriesSpent = 20f;
 
     private void Start()
     {
         treeHealth = treeMaxHealth;
+        animator = transform.parent.transform.parent.GetComponent<Animator>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -35,12 +39,32 @@ public class ChoppableTree : MonoBehaviour
     #region [calculating animation hit and damage]
     public void GetHit()
     {
-        StartCoroutine(hit());
-    }
-    public IEnumerator hit()
-    {
-        yield return new WaitForSeconds(0.5f);
+        animator.SetTrigger("Shake");
         treeHealth -= 1;
+
+        PlayerStatus.Instance.CurrentFood -= caloriesSpent;
+
+        if (treeHealth <= 0)
+        {
+            TreeIsDead();
+        }
+
+    }
+
+    void TreeIsDead()
+    {
+        
+        Vector3 treePosition = transform.position;
+
+        Destroy(transform.parent.transform.parent.gameObject);
+        canBeChopped = false;
+        SelectionManager.Instance.selectedTree = null;
+        SelectionManager.Instance.chopHolder.gameObject.SetActive(false);
+
+        GameObject brokenTree = Instantiate(Resources.Load<GameObject>("ChoppedTree"),
+            new Vector3(treePosition.x+1, treePosition.y+1, treePosition.z+1), Quaternion.Euler(0, 0, 0)
+            );
+
     }
     #endregion
 

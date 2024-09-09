@@ -71,6 +71,7 @@ MonoBehaviour:
   canBeChopped: 0
   treeMaxHealth: 10
   treeHealth: 0
+  animator: {fileID: 0}
 --- !u!65 &4006414865526480932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -157,6 +158,10 @@ PrefabInstance:
     - target: {fileID: 1951202686989992, guid: 5219ccfa3b129f645bfb105ac244e8f5, type: 3}
       propertyPath: m_Name
       value: Birch_tree2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951202686989992, guid: 5219ccfa3b129f645bfb105ac244e8f5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4803512829787638, guid: 5219ccfa3b129f645bfb105ac244e8f5, type: 3}
       propertyPath: m_LocalPosition.x
